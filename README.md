@@ -212,7 +212,7 @@ Instead of using a regular SSH terminal, you can use VS Code to remotely access 
   ```
 - **Windows**:
   ```bash
-  ssh -i C:\Users\YourName\.ssh\petstore-vm_key.pem azureuser@20.50.100.200
+  ssh -i "C:\Users\YourName\.ssh\petstore-vm_key.pem" azureuser@20.50.100.200
   ```
 
 4. When prompted, select the SSH configuration file to update:
@@ -230,9 +230,7 @@ Instead of using a regular SSH terminal, you can use VS Code to remotely access 
 6. VS Code will install its server components on the VM (this takes ~1 minute the first time)
 7. Once connected, you'll see **SSH: [your-vm-ip]** in the bottom-left corner of VS Code
 
-> **Troubleshooting**: If you get a "Permission denied" error, your .pem file permissions may be too open. Run:
-> - **Mac/Linux**: `chmod 400 ~/.ssh/petstore-vm_key.pem`
-> - **Windows**: Right-click the .pem file → Properties → Security → Advanced → Disable inheritance → Remove all users except yourself
+
 
 **Expected Result**: VS Code is connected to your Azure VM, and you can see the remote file system in the Explorer panel.
 
@@ -251,7 +249,7 @@ Now that you're connected to your Azure VM via VS Code, it's time to clone the r
 2. Clone the course repository:
    ```bash
    git clone <repository-url>
-   cd Lab1_CST8915
+   cd 26W_CST8915_Lab1
    ```
    > Replace `<repository-url>` with the actual repository URL provided by your instructor
 
@@ -286,18 +284,12 @@ Now that you're connected to your Azure VM via VS Code, it's time to clone the r
 **Installation:**
 1. Navigate to the RabbitMQ directory:
    ```bash
-   cd ~/Lab1_CST8915/RabbitMQ
+   cd ~/26W_CST8915_Lab1/RabbitMQ
    ```
 
 2. Follow the detailed instructions in [RabbitMQ/README.md](RabbitMQ/README.md)
 
-3. **Verify it's running:**
-   ```bash
-   sudo systemctl status rabbitmq-server
-   ```
-   You should see: **Active: active (running)** in green
-
-4. **Test the management UI** (optional but recommended):
+3. **Test the management UI** (optional but recommended):
    - Open browser: `http://<Your-VM-IP>:15672`
    - Login: username `guest`, password `guest`
    - You should see the RabbitMQ dashboard
@@ -319,7 +311,7 @@ Now that you're connected to your Azure VM via VS Code, it's time to clone the r
 **Installation:**
 1. Navigate to the product-service directory:
    ```bash
-   cd ~/Lab1_CST8915/product-service
+   cd ~/26W_CST8915_Lab1/product-service
    ```
 
 2. Follow the detailed instructions in [product-service/README.md](product-service/README.md)
@@ -330,11 +322,6 @@ Now that you're connected to your Azure VM via VS Code, it's time to clone the r
    ```
    You should see: `Listening on 0.0.0.0:3030`
 
-4. **Verify it's working** (open a new terminal tab: `Ctrl + Shift + 5`):
-   ```bash
-   curl http://localhost:3030/api/products
-   ```
-   You should see JSON output with product data
 
 > **Note**: Keep this terminal window open with the service running. To stop it later, press `Ctrl + C`
 
@@ -355,7 +342,7 @@ Now that you're connected to your Azure VM via VS Code, it's time to clone the r
 1. Open a new terminal tab (`Ctrl + Shift + 5`)
 2. Navigate to the order-service directory:
    ```bash
-   cd ~/Lab1_CST8915/order-service
+   cd ~/26W_CST8915_Lab1/order-service
    ```
 
 3. Follow the detailed instructions in [order-service/README.md](order-service/README.md)
@@ -365,14 +352,6 @@ Now that you're connected to your Azure VM via VS Code, it's time to clone the r
    node index.js
    ```
    You should see: `Order service listening on port 3000`
-
-5. **Verify it's working** (open a new terminal tab):
-   ```bash
-   curl -X POST http://localhost:3000/api/orders \
-     -H "Content-Type: application/json" \
-     -d '{"product":"test","quantity":1}'
-   ```
-   You should see: `{"status":"success"}` or similar
 
 > **Note**: Keep this terminal window open with the service running
 
@@ -393,7 +372,7 @@ Now that you're connected to your Azure VM via VS Code, it's time to clone the r
 1. Open a new terminal tab (`Ctrl + Shift + 5`)
 2. Navigate to the store-front directory:
    ```bash
-   cd ~/Lab1_CST8915/store-front
+   cd ~/26W_CST8915_Lab1/store-front
    ```
 
 3. Follow the detailed instructions in [store-front/README.md](store-front/README.md)
@@ -458,7 +437,7 @@ Congratulations! If you've followed all the steps, your microservices applicatio
 3. **Place Order**: Complete the checkout process
 4. **Verify Order Processing**:
    - Check the Order Service terminal - you should see log messages about the order
-   - (Optional) Check RabbitMQ Management UI (`http://<VM-IP>:15672`) - you should see messages in the queue
+   - Check RabbitMQ Management UI (`http://<VM-IP>:15672`) - you should see messages in the queue
 
 > **Success Criteria**: You can successfully browse products, add them to cart, and place orders without errors.
 
@@ -483,7 +462,7 @@ Before running locally, ensure you have installed:
 1. **Clone the repository on your local machine**:
    ```bash
    git clone <repository-url>
-   cd Lab1_CST8915
+   cd 26W_CST8915_Lab1
    ```
 
 2. **Follow the same installation process as Step 4**, but on your local machine:
@@ -511,31 +490,15 @@ Before running locally, ensure you have installed:
 - No internet connection required (after initial setup)
 - No Azure costs
 - Easier debugging with local tools
-
-#### When to Use Local vs Azure
-- **Local**: Fast testing, development, learning the codebase
-- **Azure VM**: Demonstrating cloud deployment, sharing with team members, final submission demo
-
 ---
 
 ## Testing and Verification
 
 Use this checklist to verify your application is working correctly:
 
-### Pre-Submission Checklist
-
 - [ ] **RabbitMQ is running**
-  - Command: `sudo systemctl status rabbitmq-server` shows "active (running)"
-  - Management UI accessible at `http://<VM-IP>:15672`
-
 - [ ] **Product Service is running**
-  - Command: `curl http://localhost:3030/api/products` returns JSON product data
-  - No error messages in the terminal
-
 - [ ] **Order Service is running**
-  - Terminal shows "Order service listening on port 3000"
-  - Can send test order via curl (see Step 4.5)
-
 - [ ] **Store Front is accessible**
   - Browser loads `http://<VM-IP>:8080` successfully
   - Product listings are visible on the homepage
@@ -547,12 +510,12 @@ Use this checklist to verify your application is working correctly:
   - Order appears in RabbitMQ queue (check management UI)
 
 - [ ] **Network Security Group Configured**
-  - Ports 8080, 3000, 3030, and 15672 (optional) are open
+  - Ports 8080, 3000, 3030, and 15672 are open
   - Services are accessible from your local browser (not just from the VM)
 
 ### How to Know You're Done
 
-Your application is ready for submission when:
+Your application is ready when:
 1. All services start without errors
 2. The store front loads in your browser at `http://<VM-IP>:8080`
 3. Products display correctly on the homepage
