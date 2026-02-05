@@ -21,13 +21,11 @@ The Product Service is for managing the product . It is implemented in Rust and 
 ---
 
 ### Order Service (Node.js)
-
 The Order Service handles customer orders. It is built using Node.js and receives orders from the Store Front. When order is placed, the service sends a message to RabbitMQ, allowing orders to be processed.
 
 ---
 
 ### Store Front (Vue.js)
-
 The Store Front is the client-facing web application built with Vue.js. It allows users to browse products, add items to the cart, and place orders. The Store Front communicate with the Product Service to show products and with the Order Service to submit orders.
 
 ---
