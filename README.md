@@ -9,7 +9,7 @@ Semester: Winter 2026
 
 ## Demo Video
 
-YouTube Link: https://youtu.be/RpCx6Aks39A
+YouTube Link: https://www.youtube.com/watch?v=PPByhjbG964
 
 ---
 
